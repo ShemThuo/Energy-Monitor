@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Our Team - Real-Time Energy Monitoring System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        .fade-in {
+            animation: fadeIn 2s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        .hover-grow:hover {
+            transform: scale(1.05);
+            transition: transform 0.3s;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+    <!-- Integrated Header -->
+    <header class="bg-black-100 text-white p-4 shadow-md sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-3xl font-bold">
+                <i class="fas fa-bolt text-yellow-400"></i> Energy Monitor
+            </h1>
+            <nav>
+                <ul class="flex space-x-6">
+                    <li>
+                        <a class="hover:text-gray-300 transition duration-300" href="demo.html">Home</a>
+                    </li>
+                    <li>
+                        <a class="hover:text-gray-300 transition duration-300" href="demo2.html">Contact</a>
+                    </li>
+                    <li>
+                        <a class="hover:text-gray-300 transition duration-300" href="#">Team</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="pt-24 pb-12 text-center">
+        <h1 class="text-4xl font-bold mb-4 fade-in">Meet Our Team</h1>
+        <p class="text-lg text-gray-400 fade-in">The minds behind the Real-Time Energy Monitoring System</p>
+    </section>
+
+    <!-- Team Members Section -->
+    <section class="container mx-auto px-6 py-10">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <!-- Team Member Card -->
+            <div class="bg-gray-800 p-4 rounded-lg shadow-lg text-center hover-grow">
+                <img class="w-32 h-32 mx-auto rounded-full mb-4" src="https://storage.googleapis.com/a1aa/image/HbObEYQeXc5rZvm5Ocvk_xoHlO3u3hxx4dR3UJts2aY.jpg" alt="John Doe" />
+                <h2 class="text-xl font-semibold text-white">John Doe</h2>
+                <p class="text-gray-400">Software Engineer</p>
+                <a class="text-blue-500 mt-2 inline-block" href="https://www.linkedin.com/in/johndoe" target="_blank">
+                    <i class="fab fa-linkedin fa-2x hover-grow"></i>
+                </a>
+            </div>
+
+            <div class="bg-gray-800 p-4 rounded-lg shadow-lg text-center hover-grow">
+                <img class="w-32 h-32 mx-auto rounded-full mb-4" src="https://storage.googleapis.com/a1aa/image/zeYwOt4FjawO71zCEcNvSVrOf2V-XqapUpDloB8XSuY.jpg" alt="Jane Smith" />
+                <h2 class="text-xl font-semibold text-white">Jane Smith</h2>
+                <p class="text-gray-400">Product Manager</p>
+                <a class="text-blue-500 mt-2 inline-block" href="https://www.linkedin.com/in/janesmith" target="_blank">
+                    <i class="fab fa-linkedin fa-2x hover-grow"></i>
+                </a>
+            </div>
+
+            <div class="bg-gray-800 p-4 rounded-lg shadow-lg text-center hover-grow">
+                <img class="w-32 h-32 mx-auto rounded-full mb-4" src="https://storage.googleapis.com/a1aa/image/t3z1eXiLeiLDc_wDRdwc2ObS2q0MGe2cafj2Bis-dro.jpg" alt="Alice Johnson" />
+                <h2 class="text-xl font-semibold text-white">Alice Johnson</h2>
+                <p class="text-gray-400">UX Designer</p>
+                <a class="text-blue-500 mt-2 inline-block" href="https://www.linkedin.com/in/alicejohnson" target="_blank">
+                    <i class="fab fa-linkedin fa-2x hover-grow"></i>
+                </a>
+            </div>
+
+            <div class="bg-gray-800 p-4 rounded-lg shadow-lg text-center hover-grow">
+                <img class="w-32 h-32 mx-auto rounded-full mb-4" src="https://storage.googleapis.com/a1aa/image/z3rufhSgxKIbzrFodkrHnqbgP15mYMpsT_7SPtG6wqc.jpg" alt="Bob Brown" />
+                <h2 class="text-xl font-semibold text-white">Bob Brown</h2>
+                <p class="text-gray-400">Marketing Specialist</p>
+                <a class="text-blue-500 mt-2 inline-block" href="https://www.linkedin.com/in/bobbrown" target="_blank">
+                    <i class="fab fa-linkedin fa-2x hover-grow"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-gray-400 py-4">
+        <div class="container mx-auto text-center">
+            <p>© 2025 Energy Monitor. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
