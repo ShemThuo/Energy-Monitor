@@ -2,64 +2,47 @@
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Contact Us - Real-Time Energy Monitoring System</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
     <style>
         body {
             font-family: 'Roboto', sans-serif;
         }
 
-        .fade-in {
-            animation: fadeIn 2s ease-in-out;
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
+        .glassmorphism:hover {
+            transform: scale(1.05);
         }
 
-        .slide-in-left {
-            animation: slideInLeft 1.5s ease-in-out;
+        .btn-hover {
+            transition: all 0.3s ease-in-out;
         }
 
-        @keyframes slideInLeft {
-            from {
-                transform: translateX(-100%);
-            }
-            to {
-                transform: translateX(0);
-            }
+        .btn-hover:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
         }
 
-        .slide-in-right {
-            animation: slideInRight 1.5s ease-in-out;
-        }
-
-        @keyframes slideInRight {
-            from {
-                transform: translateX(100%);
-            }
-            to {
-                transform: translateX(0);
-            }
-        }
-
-        .hover-grow:hover {
-            transform: scale(1.1);
-            transition: transform 0.3s;
+        .rotate-180 {
+            transform: rotate(180deg);
+            transition: transform 0.3s ease-in-out;
         }
     </style>
 </head>
-<body class="bg-gray-600 text-gray-800">
+<body class="bg-gray-700 text-gray-100">
 
-    <!-- Header Section (Fixed) -->
     <header class="bg-black-100 text-white p-4 shadow-md fixed w-full z-50 top-0">
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-3xl font-bold hover-grow">
@@ -68,7 +51,7 @@
             <nav>
                 <ul class="flex space-x-6">
                     <li>
-                        <a class="hover:underline hover:text-gray-300 transition duration-300" href="demo.html">Home</a>
+                        <a class="hover:underline hover:text-gray-300 transition duration-300" href="home.html">Home</a>
                     </li>
                     <li>
                         <a class="hover:underline hover:text-gray-300 transition duration-300" href="#">Contact</a>
@@ -81,42 +64,119 @@
         </div>
     </header>
 
-    <!-- Hero Section with Background Image (Adjusted for Fixed Header) -->
-    <section class="relative bg-cover bg-center py-24 text-white pt-20" style="background-image: url('image_IXtvLGMg_1739870775333_raw.jpg');">
+    <!-- Hero Section -->
+    <section class="relative bg-cover bg-center py-32 text-white" style="background-image: url('image_IXtvLGMg_1739870775333_raw.jpg');">
         <div class="absolute inset-0 bg-black opacity-50"></div>
         <div class="container mx-auto text-center relative z-10">
-            <h2 class="text-4xl font-bold mb-4 fade-in">Contact Us</h2>
-            <p class="mb-8 fade-in">We'd love to hear from you! Whether you have a question about our services, need assistance, or just want to give feedback, feel free to reach out.</p>
+            <h2 class="text-5xl font-bold mb-4 fade-in">Contact Us</h2>
+            <p class="text-lg mb-6 fade-in">We'd love to hear from you! Whether you have a question, need assistance, or just want to give feedback, feel free to reach out.</p>
+            
         </div>
     </section>
 
-    <!-- Contact & Social Section -->
-    <section class="bg-gray-400 py-16">
-        <div class="container mx-auto flex flex-col md:flex-row items-center">
-            <div class="md:w-1/2 slide-in-left">
-                <img class="rounded-lg shadow-lg hover-grow" src="https://storage.googleapis.com/a1aa/image/WcCkjGsuLn0g6RrufIy9BtoeyEgUZVxVC7y8K0EqmEI.jpg" alt="Contact Illustration" width="400" height="600"/>
-            </div>
-            <div class="md:w-1/2 mt-8 md:mt-0 slide-in-right text-center md:text-left">
-                <h2 class="text-3xl font-bold mb-4">Follow Us</h2>
-                <p class="mb-4">Stay connected with us on social media!</p>
-                <div class="space-x-4">
-                    <a class="text-blue-600 hover:text-blue-800 transition duration-300" href="https://www.facebook.com" target="_blank">
-                        <i class="fab fa-facebook fa-3x hover-grow"></i>
-                    </a>
-                    <a class="text-pink-600 hover:text-pink-800 transition duration-300" href="https://www.instagram.com" target="_blank">
-                        <i class="fab fa-instagram fa-3x hover-grow"></i>
-                    </a>
+    <!-- FAQ Section -->
+<section id="faq" class="bg-gray-900 py-16 text-white">
+    <div class="container mx-auto text-center">
+        <h2 class="text-4xl font-bold mb-8">Frequently Asked Questions</h2>
+        <div class="max-w-3xl mx-auto">
+            <div class="space-y-4">
+                <!-- Question 1 -->
+                <div class="border border-gray-600 rounded-lg overflow-hidden shadow-lg">
+                    <button class="w-full text-left px-6 py-4 bg-gray-800 text-lg font-semibold flex justify-between items-center focus:outline-none" onclick="toggleFAQ(this)">
+                        What is the Real-Time Energy Monitoring System?
+                        <span class="fas fa-chevron-down"></span>
+                    </button>
+                    <div class="px-6 py-4 bg-gray-700 text-gray-300">Our system allows you to track your energy consumption in real-time, providing insights to optimize usage and reduce costs.</div>
                 </div>
+
+                <!-- Question 2 -->
+                <div class="border border-gray-600 rounded-lg overflow-hidden shadow-lg">
+                    <button class="w-full text-left px-6 py-4 bg-gray-800 text-lg font-semibold flex justify-between items-center focus:outline-none" onclick="toggleFAQ(this)">
+                        How does real-time monitoring help save energy?
+                        <span class="fas fa-chevron-down"></span>
+                    </button>
+                    <div class="px-6 py-4 bg-gray-700 text-gray-300">By identifying energy wastage patterns, you can take corrective actions and optimize your energy consumption efficiently.</div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="border border-gray-600 rounded-lg overflow-hidden shadow-lg">
+                    <button class="w-full text-left px-6 py-4 bg-gray-800 text-lg font-semibold flex justify-between items-center focus:outline-none" onclick="toggleFAQ(this)">
+                        Can I access the system from my mobile device?
+                        <span class="fas fa-chevron-down"></span>
+                    </button>
+                    <div class="px-6 py-4 bg-gray-700 text-gray-300">Yes! Our system is fully responsive, and you can monitor energy usage from any device.</div>
+                </div>
+
+                <!-- Question 4 -->
+                <div class="border border-gray-600 rounded-lg overflow-hidden shadow-lg">
+                    <button class="w-full text-left px-6 py-4 bg-gray-800 text-lg font-semibold flex justify-between items-center focus:outline-none" onclick="toggleFAQ(this)">
+                        Do I get alerts for unusual energy usage?
+                        <span class="fas fa-chevron-down"></span>
+                    </button>
+                    <div class="px-6 py-4 bg-gray-700 text-gray-300">Yes! The system sends instant alerts for unusual energy consumption, helping you prevent unnecessary energy costs.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function toggleFAQ(button) {
+        const content = button.nextElementSibling;
+        content.classList.toggle('hidden');
+        button.querySelector('span').classList.toggle('rotate-180');
+    }
+</script>
+
+<style>
+    .rotate-180 {
+        transform: rotate(180deg);
+        transition: transform 0.3s ease-in-out;
+    }
+</style>
+
+
+    <!-- Social Media Section -->
+    <section class="bg-gray-900 py-16">
+        <div class="container mx-auto text-center">
+            <h2 class="text-4xl font-bold text-white mb-6">Follow Us</h2>
+            <p class="text-lg text-gray-400 mb-6">Stay connected with us on social media!</p>
+            <div class="flex justify-center space-x-6">
+                <a href="https://www.facebook.com" target="_blank" class="text-blue-500 hover:text-blue-700 transition duration-300">
+                    <i class="fab fa-facebook fa-3x"></i>
+                </a>
+                <a href="https://www.instagram.com" target="_blank" class="text-pink-500 hover:text-pink-700 transition duration-300">
+                    <i class="fab fa-instagram fa-3x"></i>
+                </a>
+                <a href="https://www.twitter.com" target="_blank" class="text-blue-400 hover:text-blue-600 transition duration-300">
+                    <i class="fab fa-twitter fa-3x"></i>
+                </a>
             </div>
         </div>
     </section>
 
     <!-- Footer Section -->
-    <footer class="bg-gray-900 text-white py-4">
-        <div class="container mx-auto text-center">
-            <p>© 2025 Energy Monitor. All rights reserved.</p>
-        </div>
+    <footer class="bg-gray-900 text-white py-4 text-center">
+        <p>© 2025 Energy Monitor. All rights reserved.</p>
     </footer>
+
+    <!-- FAQ Toggle Script -->
+    <script>
+        function toggleFAQ(button) {
+            const content = button.nextElementSibling;
+            content.classList.toggle('hidden');
+            button.querySelector('span').classList.toggle('rotate-180');
+        }
+    </script>
+
+    <!-- GSAP Animations -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            gsap.from(".fade-in", { opacity: 0, y: 50, duration: 1.5, stagger: 0.3, ease: "power2.out" });
+            gsap.from(".glassmorphism", { opacity: 0, scale: 0.8, duration: 1.5, ease: "power2.out" });
+        });
+    </script>
 
 </body>
 </html>
+

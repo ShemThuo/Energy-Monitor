@@ -8,7 +8,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
     <style>
-        body {
+       body {
             font-family: 'Roboto', sans-serif;
         }
         .fade-in {
@@ -17,17 +17,41 @@
         @keyframes fadeIn {
             from {
                 opacity: 0;
+                transform: translateY(20px);
             }
             to {
                 opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .horizontal-scroll {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 1rem;
+        }
+        .scroll-item {
+            flex: 0 0 auto;
+            scroll-snap-align: start;
+            min-width: 80%;
+        }
+        @media (min-width: 768px) {
+            .horizontal-scroll {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                overflow-x: hidden;
+            }
+            .scroll-item {
+                min-width: auto;
             }
         }
     </style>
 </head>
-<body class="bg-gray-500 text-gray-800">
+<body class="bg-gray-700 text-gray-800 flex flex-col">
 
+   
     <!-- Header -->
-    <header class="bg-black-100 text-white p-4 shadow-md sticky top-0 z-50">
+    <header class="bg-transparent text-white p-4 shadow-md sticky top-0 z-50">
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-3xl font-bold">
                 <i class="fas fa-bolt text-yellow-500"></i> Energy Monitor
@@ -35,81 +59,123 @@
             <nav>
                 <ul class="flex space-x-6">
                     <li><a class="hover:text-gray-300 transition duration-300" href="cover.html">Home</a></li>
-                    <li><a class="hover:text-gray-300 transition duration-300" href="demo2.html">Contact</a></li>
+                    <li><a class="hover:text-gray-300 transition duration-300" href="contact.html">Contact</a></li>
                     <li>
-                        <a class="hover:text-gray-300 transition duration-300" href="team.html">team</a>
+                        <a class="hover:text-gray-300 transition duration-300" href="team.html">Team</a>
                     </li>
                 </ul>
             </nav>
         </div>
     </header>
+    <section class="relative text-white h-screen flex items-center justify-center text-center md:text-left bg-cover bg-center"
+    style="background-image: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.4)), url('image_IXtvLGMg_1739870775333_raw.jpg');">
 
-    <!-- Hero Section -->
-    <section class="bg-gradient-to-r from-black-300 to-black-900 text-white py-20">
-        <div class="container mx-auto flex flex-col md:flex-row items-center">
-            <div class="md:w-1/2 fade-in text-center md:text-left">
-                <h2 class="text-4xl font-bold mb-4">
-                    Real-Time Energy Monitoring System
-                </h2>
-                <p class="mb-6">
-                    Optimize your energy usage and reduce costs with real-time insights and instant alerts.
-                </p>
-                
-            </div>
-            <div class="md:w-1/2 mt-8 md:mt-0 fade-in">
-                <img src="https://storage.googleapis.com/a1aa/image/P7azFUqzWfB1XLML5XBYil6_vdEw8QG-to0eWs_uf7Q.jpg" alt="Energy Dashboard" class="rounded-lg shadow-lg"/>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section id="features" class="bg-gray-100 py-16">
-        <div class="container mx-auto text-center">
-            <h2 class="text-4xl font-bold mb-8 text-black-600">
-                Features
+    <div class="container mx-auto flex flex-col md:flex-row items-center px-6 md:px-12">
+        <!-- Text Content -->
+        <div class="md:w-1/2 fade-in">
+            <h2 class="text-5xl font-bold leading-tight mb-6">
+                Real-Time Energy Monitoring System
             </h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-105 fade-in">
-                    <img src="https://storage.googleapis.com/a1aa/image/IiJwk7t7EUru5KOgcJe0Wn_kU7wxPxcEpV6k9OpOtj4.jpg" alt="Real-Time Monitoring" class="mx-auto mb-4 w-20"/>
-                    <h3 class="text-2xl font-bold mb-2">Real-Time Monitoring</h3>
-                    <p>Up-to-the-minute data on energy consumption.</p>
-                </div>
-                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-105 fade-in">
-                    <img src="https://storage.googleapis.com/a1aa/image/xNhDtr4N2Tukl3RJAlnIWLTs78ktispbJeHnRqHpnVo.jpg" alt="Detailed Reports" class="mx-auto mb-4 w-20"/>
-                    <h3 class="text-2xl font-bold mb-2">Detailed Reports</h3>
-                    <p>Comprehensive insights to analyze energy usage.</p>
-                </div>
-                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-105 fade-in">
-                    <img src="https://storage.googleapis.com/a1aa/image/q4Q6TOoVdCfYqFO26l-AQl9ZHHvLo3BIQwKxCH8yvK8.jpg" alt="Instant Alerts" class="mx-auto mb-4 w-20"/>
-                    <h3 class="text-2xl font-bold mb-2">Instant Alerts</h3>
-                    <p>Receive notifications for unusual energy patterns.</p>
-                </div>
-            </div>
+            <p class="text-lg mb-6">
+                Optimize your energy usage and reduce costs with real-time insights and instant alerts.
+            </p>
+            
         </div>
-    </section>
+    
 
-    <!-- Why Choose Us Section -->
-    <section class="bg-white py-16">
-        <div class="container mx-auto flex flex-col md:flex-row items-center">
-            <div class="md:w-1/2 fade-in">
-                <img src="https://storage.googleapis.com/a1aa/image/Arhb8HUCL_I8Lksg0_cKw6o3YRFvb6qlc6MOGfuwkUc.jpg" alt="Mobile Monitoring" class="rounded-lg shadow-lg" width="500" height="600"/>
+        <!-- Image -->
+        <div class="md:w-1/2 mt-8 md:mt-0 fade-in">
+            <img src="https://storage.googleapis.com/a1aa/image/P7azFUqzWfB1XLML5XBYil6_vdEw8QG-to0eWs_uf7Q.jpg"
+                alt="Energy Dashboard"
+                class="rounded-lg shadow-2xl w-full md:w-4/5 transform hover:scale-105 transition duration-300"/>
+        </div>
+    </div>
+</section>
+
+
+
+   <!-- Features Section -->
+<section id="features" class="bg-gradient-to-r from-gray-100 to-gray-200 py-20">
+    <div class="container mx-auto text-center">
+        <h2 class="text-5xl font-bold mb-12 text-gray-800 fade-in">Features</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div class="bg-white p-10 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-105 fade-in">
+                <i class="fas fa-bolt text-yellow-500 text-5xl mb-6"></i>
+                <h3 class="text-2xl font-bold mb-2">Real-Time Monitoring</h3>
+                <p class="text-gray-600">Get up-to-the-minute data on energy consumption.</p>
             </div>
-            <div class="md:w-1/2 mt-8 md:mt-0 fade-in text-center md:text-left">
-                <h2 class="text-4xl font-bold mb-4 text-black-600">
-                    Why Choose Us?
-                </h2>
-                <p class="mb-4">
-                    User-friendly and efficient, track your energy usage anytime, anywhere.
-                </p>
-                <a href="demo2.html" class="bg-green-600 text-white px-6 py-3 rounded-full font-bold hover:bg-green-700 transition duration-300">
-                    Contact Us
-                </a>
+            <div class="bg-white p-10 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-105 fade-in">
+                <i class="fas fa-chart-line text-blue-500 text-5xl mb-6"></i>
+                <h3 class="text-2xl font-bold mb-2">Detailed Reports</h3>
+                <p class="text-gray-600">Analyze energy usage with comprehensive insights.</p>
+            </div>
+            <div class="bg-white p-10 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-105 fade-in">
+                <i class="fas fa-bell text-red-500 text-5xl mb-6"></i>
+                <h3 class="text-2xl font-bold mb-2">Instant Alerts</h3>
+                <p class="text-gray-600">Receive notifications for unusual energy patterns.</p>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section id="how-it-works" class="bg-gray-700 bg-center py-20" style="background-image: url('https://source.unsplash.com/1600x900/?technology,energy');">
+    <div class="container mx-auto text-center text-white">
+        <h2 class="text-5xl font-bold mb-12 fade-in">How It Works</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div class="bg-white bg-opacity-20 p-10 rounded-xl shadow-lg hover:bg-opacity-30 transition duration-300 fade-in">
+                <i class="fas fa-plug text-green-400 text-5xl mb-6"></i>
+                <h3 class="text-2xl font-bold mb-2">Connect Sensors</h3>
+                <p>Install smart energy meters to track your consumption.</p>
+            </div>
+            <div class="bg-white bg-opacity-20 p-10 rounded-xl shadow-lg hover:bg-opacity-30 transition duration-300 fade-in">
+                <i class="fas fa-chart-line text-blue-400 text-5xl mb-6"></i>
+                <h3 class="text-2xl font-bold mb-2">Monitor in Real-Time</h3>
+                <p>View live energy data and usage patterns.</p>
+            </div>
+            <div class="bg-white bg-opacity-20 p-10 rounded-xl shadow-lg hover:bg-opacity-30 transition duration-300 fade-in">
+                <i class="fas fa-cogs text-yellow-400 text-5xl mb-6"></i>
+                <h3 class="text-2xl font-bold mb-2">Optimize Efficiency</h3>
+                <p>Utilize insights to reduce consumption and save costs.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Benefits Section -->
+<section id="benefits" class="bg-gradient-to-r from-green-100 to-green-300 py-20">
+    <div class="container mx-auto text-center">
+        <h2 class="text-5xl font-bold mb-12 text-gray-800 fade-in">Benefits</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div class="bg-white p-10 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-105 fade-in">
+                <i class="fas fa-money-bill-wave text-green-600 text-5xl mb-6"></i>
+                <h3 class="text-2xl font-bold mb-2">Cost Savings</h3>
+                <p>Reduce your electricity bills with optimized energy use.</p>
+            </div>
+            <div class="bg-white p-10 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-105 fade-in">
+                <i class="fas fa-leaf text-green-600 text-5xl mb-6"></i>
+                <h3 class="text-2xl font-bold mb-2">Environmental Impact</h3>
+                <p>Lower carbon footprint and promote sustainability.</p>
+            </div>
+            <div class="bg-white p-10 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-105 fade-in">
+                <i class="fas fa-user-shield text-green-600 text-5xl mb-6"></i>
+                <h3 class="text-2xl font-bold mb-2">Enhanced Security</h3>
+                <p>Instant alerts for unusual usage patterns or issues.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- GSAP Animations -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        gsap.to(".fade-in", { opacity: 1, duration: 1.5, stagger: 0.3, ease: "power2.out" });
+    });
+</script>
+
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-4">
+    <footer class="bg-gray-800 text-white py-4 mt-auto">
         <div class="container mx-auto text-center">
             <p>© 2025 Energy Monitor. All rights reserved.</p>
         </div>
@@ -117,3 +183,4 @@
     
 </body>
 </html>
+
