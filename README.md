@@ -7,7 +7,6 @@ This repository contains the code and documentation for a real-time energy monit
 *   [Introduction](#introduction)
 *   [Features](#features)
 *   [Technologies Used](#technologies-used)
-*   [Project Team](#project-team)
 *   [Project Requirement](#problem-statement-justification)   
 *   [Canva Slide](#canva-slide)
 *   [Work Plan](#work-plan)
