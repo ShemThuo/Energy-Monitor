@@ -1,4 +1,4 @@
-# Real-Time Energy Monitoring System
+# Real-Time Energy Monitoring System : PowerEdge
 
 This repository contains the code and documentation for a real-time energy monitoring system designed to optimize energy consumption in buildings.
 
