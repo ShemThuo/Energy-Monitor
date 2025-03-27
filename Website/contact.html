@@ -8,6 +8,14 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <!-- Include EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+        // Initialize EmailJS with your User ID
+        (function() {
+            emailjs.init("S2piQdnntVBD4UB9W"); // Replace with your EmailJS Public Key
+        })();
+    </script>
 
     <style>
         body {
@@ -39,14 +47,24 @@
             transform: rotate(180deg);
             transition: transform 0.3s ease-in-out;
         }
+
+        #loading {
+            display: flex;
+        }
     </style>
 </head>
 <body class="bg-gray-700 text-gray-100">
 
+    <!-- Loading Animation -->
+    <div id="loading" class="fixed inset-0 bg-black flex justify-center items-center z-50">
+        <div class="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-yellow-500"></div>
+    </div>
+
+    <!-- Integrated Header -->
     <header class="bg-black-100 text-white p-4 shadow-md fixed w-full z-50 top-0">
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-3xl font-bold hover-grow">
-                <i class="fas fa-bolt text-yellow-500"></i> Energy Monitor
+                <i class="fas fa-bolt text-yellow-500"></i> PowerEdge
             </h1>
             <nav>
                 <ul class="flex space-x-6">
@@ -54,7 +72,7 @@
                         <a class="hover:underline hover:text-gray-300 transition duration-300" href="home.html">Home</a>
                     </li>
                     <li>
-                        <a class="hover:underline hover:text-gray-300 transition duration-300" href="#">Contact</a>
+                        <a class="hover:underline hover:text-gray-300 transition duration-300" href="#contact-form">Contact</a>
                     </li>
                     <li>
                         <a class="hover:text-gray-300 transition duration-300" href="team.html">Team</a>
@@ -65,76 +83,193 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="relative bg-cover bg-center py-32 text-white" style="background-image: url('image_IXtvLGMg_1739870775333_raw.jpg');">
-        <div class="absolute inset-0 bg-black opacity-50"></div>
-        <div class="container mx-auto text-center relative z-10">
-            <h2 class="text-5xl font-bold mb-4 fade-in">Contact Us</h2>
-            <p class="text-lg mb-6 fade-in">We'd love to hear from you! Whether you have a question, need assistance, or just want to give feedback, feel free to reach out.</p>
-            
+<section id="hero-section" class="relative bg-cover bg-center py-32 text-white transition-opacity duration-1000" 
+style="background-image: url('image_IXtvLGMg_1739870775333_raw.jpg');">
+
+<!-- Dark Overlay -->
+<div class="absolute inset-0 bg-black opacity-50"></div>
+
+<div class="container mx-auto text-center relative z-10">
+    <h2 class="text-5xl font-bold mb-4 fade-in text-blue-300">Contact Us</h2>
+<p class="text-lg mb-6 fade-in text-gray-200">
+    We'd love to hear from you! Whether you have a question, need assistance, or just want to give feedback, feel free to reach out.
+</p>
+
+</div>
+</section>
+
+<style>
+/* Smooth Background Transition */
+#hero-section {
+transition: background-image 1s ease-in-out, opacity 1s ease-in-out;
+}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+const images = [
+    "image_IXtvLGMg_1739870775333_raw.jpg",
+    "image_h4tVbud7_1739869447486_raw.jpg",
+    "cc43f0d4-299b-4fdb-95eb-76d2b17c78fe.webp"
+];
+
+let index = 0;
+const heroSection = document.getElementById("hero-section");
+
+function changeBackground() {
+    heroSection.style.opacity = "0"; // Fade out effect
+    setTimeout(() => {
+        heroSection.style.backgroundImage = `url('${images[index]}')`;
+        heroSection.style.opacity = "1"; // Fade in effect
+        index = (index + 1) % images.length; // Loop through images
+    }, 1000); // Wait 1s before changing image
+}
+
+setInterval(changeBackground, 4000); // Change every 4 seconds
+changeBackground(); // Initial change
+});
+</script>
+
+
+    <!-- Contact Form Section -->
+    <section id="contact-form" class="bg-gray-800 py-16">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-white text-center mb-8">Get in Touch</h2>
+            <form id="contactForm" class="max-w-2xl mx-auto glassmorphism p-8 rounded-lg">
+                <div class="mb-6">
+                    <label for="name" class="block text-gray-300 mb-2">Name</label>
+                    <input type="text" id="name" class="w-full px-4 py-2 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500" required>
+                </div>
+                <div class="mb-6">
+                    <label for="email" class="block text-gray-300 mb-2">Email</label>
+                    <input type="email" id="email" class="w-full px-4 py-2 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500" required>
+                </div>
+                <div class="mb-6">
+                    <label for="message" class="block text-gray-300 mb-2">Message</label>
+                    <textarea id="message" rows="5" class="w-full px-4 py-2 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500" required></textarea>
+                </div>
+                <button type="submit" class="w-full bg-yellow-500 text-black font-semibold px-6 py-3 rounded-lg hover:bg-yellow-600 transition duration-300">
+                    Send Message
+                </button>
+            </form>
+
+            <!-- Success Notification -->
+            <div id="successMessage" class="hidden text-green-500 text-center mt-4 font-semibold">Message sent successfully!</div>
+            <div id="errorMessage" class="hidden text-red-500 text-center mt-4 font-semibold">Failed to send message. Please try again.</div>
         </div>
     </section>
 
-    <!-- FAQ Section -->
-<section id="faq" class="bg-gray-900 py-16 text-white">
-    <div class="container mx-auto text-center">
-        <h2 class="text-4xl font-bold mb-8">Frequently Asked Questions</h2>
-        <div class="max-w-3xl mx-auto">
-            <div class="space-y-4">
-                <!-- Question 1 -->
-                <div class="border border-gray-600 rounded-lg overflow-hidden shadow-lg">
-                    <button class="w-full text-left px-6 py-4 bg-gray-800 text-lg font-semibold flex justify-between items-center focus:outline-none" onclick="toggleFAQ(this)">
-                        What is the Real-Time Energy Monitoring System?
-                        <span class="fas fa-chevron-down"></span>
-                    </button>
-                    <div class="px-6 py-4 bg-gray-700 text-gray-300">Our system allows you to track your energy consumption in real-time, providing insights to optimize usage and reduce costs.</div>
+    <!-- JavaScript for Handling the Email Sending -->
+    <script>
+        document.getElementById("contactForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent the form from submitting the default way
+
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const message = document.getElementById("message").value;
+            const successMsg = document.getElementById("successMessage");
+            const errorMsg = document.getElementById("errorMessage");
+
+            // Hide previous messages
+            successMsg.classList.add("hidden");
+            errorMsg.classList.add("hidden");
+
+            if (!name || !email || !message) {
+                alert("Please fill in all fields before sending.");
+                return;
+            }
+
+            // Send email using EmailJS
+            emailjs.send("service_8zu15l3", "template_w3j5a9i", {
+                from_name: name,
+                from_email: email,
+                message: message,
+            })
+            .then(
+                function(response) {
+                    console.log("Email sent successfully!", response);
+                    successMsg.classList.remove("hidden");
+                    document.getElementById("contactForm").reset(); // Clear the form
+                },
+                function(error) {
+                    console.error("Failed to send email:", error);
+                    errorMsg.classList.remove("hidden");
+                }
+            );
+        });
+    </script>
+
+    <!-- Loading Animation Script -->
+    <script>
+        window.addEventListener('load', function() {
+            document.getElementById('loading').style.display = 'none';
+        });
+    </script>
+</body>
+</html>
+
+
+    <!-- Map Section -->
+    <section class="bg-gray-900 py-16">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-white text-center mb-8">Our Location</h2>
+            <div class="glassmorphism p-4 rounded-lg">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.8085999999997!2d36.82115931475388!3d-1.2923858359799995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f10d4f2e5b5b5%3A0x1f0b0b0b0b0b0b0b!2sNairobi%20City%20Centre!5e0!3m2!1sen!2ske!4v1633020000000!5m2!1sen!2ske" 
+                        width="100%" 
+                        height="400" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="bg-gray-800 py-16">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-white text-center mb-8">What Our Clients Say</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Testimonial 1 -->
+                <div class="glassmorphism p-6 rounded-lg">
+                    <p class="text-gray-300 mb-4">"The Real-Time Energy Monitoring System has helped us reduce our energy costs by 20%. Highly recommended!"</p>
+                    <div class="flex items-center">
+                        <img src="https://storage.googleapis.com/a1aa/image/z3rufhSgxKIbzrFodkrHnqbgP15mYMpsT_7SPtG6wqc.jpg" alt="Client 1" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h3 class="text-white font-semibold">John Doe</h3>
+                            <p class="text-gray-400">CEO, Green Energy Solutions</p>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Question 2 -->
-                <div class="border border-gray-600 rounded-lg overflow-hidden shadow-lg">
-                    <button class="w-full text-left px-6 py-4 bg-gray-800 text-lg font-semibold flex justify-between items-center focus:outline-none" onclick="toggleFAQ(this)">
-                        How does real-time monitoring help save energy?
-                        <span class="fas fa-chevron-down"></span>
-                    </button>
-                    <div class="px-6 py-4 bg-gray-700 text-gray-300">By identifying energy wastage patterns, you can take corrective actions and optimize your energy consumption efficiently.</div>
+                <!-- Testimonial 2 -->
+                <div class="glassmorphism p-6 rounded-lg">
+                    <p class="text-gray-300 mb-4">"The system is easy to use and provides valuable insights. It's a game-changer for our business."</p>
+                    <div class="flex items-center">
+                        <img src="https://storage.googleapis.com/a1aa/image/_yRQMwKMTcbTi-UXfQ_7ihkgtN6jGdmYA9iDi1cUhaE.jpg" alt="Client 2" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h3 class="text-white font-semibold">Jane Smith</h3>
+                            <p class="text-gray-400">CTO, EcoTech Innovations</p>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Question 3 -->
-                <div class="border border-gray-600 rounded-lg overflow-hidden shadow-lg">
-                    <button class="w-full text-left px-6 py-4 bg-gray-800 text-lg font-semibold flex justify-between items-center focus:outline-none" onclick="toggleFAQ(this)">
-                        Can I access the system from my mobile device?
-                        <span class="fas fa-chevron-down"></span>
-                    </button>
-                    <div class="px-6 py-4 bg-gray-700 text-gray-300">Yes! Our system is fully responsive, and you can monitor energy usage from any device.</div>
-                </div>
-
-                <!-- Question 4 -->
-                <div class="border border-gray-600 rounded-lg overflow-hidden shadow-lg">
-                    <button class="w-full text-left px-6 py-4 bg-gray-800 text-lg font-semibold flex justify-between items-center focus:outline-none" onclick="toggleFAQ(this)">
-                        Do I get alerts for unusual energy usage?
-                        <span class="fas fa-chevron-down"></span>
-                    </button>
-                    <div class="px-6 py-4 bg-gray-700 text-gray-300">Yes! The system sends instant alerts for unusual energy consumption, helping you prevent unnecessary energy costs.</div>
+                <!-- Testimonial 3 -->
+                <div class="glassmorphism p-6 rounded-lg">
+                    <p class="text-gray-300 mb-4">"We've seen a significant improvement in our energy efficiency since using this system. Great product!"</p>
+                    <div class="flex items-center">
+                        <img src="https://storage.googleapis.com/a1aa/image/4SNNbanS0iPW3KIGmCEtzlBThSxmHbHLcfksdNbqsaM.jpg" alt="Client 3" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h3 class="text-white font-semibold">Mike Johnson</h3>
+                            <p class="text-gray-400">Operations Manager, PowerSave Ltd</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<script>
-    function toggleFAQ(button) {
-        const content = button.nextElementSibling;
-        content.classList.toggle('hidden');
-        button.querySelector('span').classList.toggle('rotate-180');
-    }
-</script>
-
-<style>
-    .rotate-180 {
-        transform: rotate(180deg);
-        transition: transform 0.3s ease-in-out;
-    }
-</style>
-
+  
 
     <!-- Social Media Section -->
     <section class="bg-gray-900 py-16">
@@ -160,6 +295,11 @@
         <p>© 2025 Energy Monitor. All rights reserved.</p>
     </footer>
 
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 bg-yellow-500 text-black p-3 rounded-full shadow-lg hover:bg-yellow-600 transition duration-300 hidden">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
     <!-- FAQ Toggle Script -->
     <script>
         function toggleFAQ(button) {
@@ -177,6 +317,43 @@
         });
     </script>
 
+    <!-- Smooth Scroll Script -->
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+
+    <!-- Back to Top Script -->
+    <script>
+        const backToTopButton = document.getElementById('back-to-top');
+
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                backToTopButton.style.display = 'block';
+            } else {
+                backToTopButton.style.display = 'none';
+            }
+        });
+
+        backToTopButton.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+
+    <!-- Loading Animation Script -->
+    <script>
+        window.addEventListener('load', function() {
+            document.getElementById('loading').style.display = 'none';
+        });
+    </script>
 </body>
 </html>
-
