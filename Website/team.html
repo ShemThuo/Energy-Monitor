@@ -1,129 +1,259 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Our Team - Real-Time Energy Monitoring System</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
-    <style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script> <!-- Add Typed.js -->
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
+   <style>
         body {
             font-family: 'Roboto', sans-serif;
         }
         .fade-in {
-            animation: fadeIn 2s ease-in-out;
+            opacity: 0; /* Start hidden */
+            transform: translateY(20px); /* Slight downward offset */
         }
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
+        .hover-grow {
+            transition: transform 0.3s, box-shadow 0.3s;
         }
         .hover-grow:hover {
             transform: scale(1.05);
-            transition: transform 0.3s;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        .animated-gradient {
+            background: linear-gradient(135deg, #1a1a1a, #2c3e50, #1a1a1a);
+            background-size: 200% 200%;
+            animation: gradientAnimation 10s ease infinite;
+        }
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .bubble-text {
+            display: inline-block;
+            font-size: 3rem;
+            font-weight: bold;
+            position: relative;
+        }
+        .bubble-text span {
+            display: inline-block;
+            transform: scale(1);
+        }
+              /* Hover Effects */
+              .hover-grow:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+        .hover-float:hover {
+            transform: translateY(-10px);
+            transition: transform 0.3s ease-in-out;
+        }
+        .tilt:hover {
+            transform: perspective(500px) rotateY(5deg);
+            transition: transform 0.3s ease;
+        }
+        .img-hover:hover {
+            transform: scale(1.2);
+            transition: transform 0.3s ease-in-out;
+        }
+        .gradient-border {
+            position: relative;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+        }
+        .gradient-border::before {
+            content: "";
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            border-radius: inherit;
+            z-index: -1;
+            transition: opacity 0.3s;
+            opacity: 0;
+        }
+        .gradient-border:hover::before {
+            opacity: 1;
         }
     </style>
 </head>
 <body class="bg-gray-900 text-white">
-    <!-- Integrated Header -->
-    <header class="bg-black-100 text-white p-4 shadow-md sticky top-0 z-50">
+
+    <header class="bg-transparent text-white p-4 shadow-md sticky top-0 z-50">
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-3xl font-bold">
-                <i class="fas fa-bolt text-yellow-400"></i> Energy Monitor
+                <i class="fas fa-bolt text-yellow-400"></i> PowerEdge
             </h1>
             <nav>
                 <ul class="flex space-x-6">
-                    <li>
-                        <a class="hover:text-gray-300 transition duration-300" href="home.html">Home</a>
-                    </li>
-                    <li>
-                        <a class="hover:text-gray-300 transition duration-300" href="contact.html">Contact</a>
-                    </li>
-                    <li>
-                        <a class="hover:text-gray-300 transition duration-300" href="#">Team</a>
-                    </li>
+                    <li><a class="hover:text-gray-300 transition duration-300" href="home.html">Home</a></li>
+                    <li><a class="hover:text-gray-300 transition duration-300" href="contact.html">Contact</a></li>
+                    <li><a class="hover:text-gray-300 transition duration-300" href="#">Team</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="pt-24 pb-12 text-center">
-        <h1 class="text-4xl font-bold mb-4 fade-in">Meet Our Team</h1>
-        <p class="text-lg text-gray-400 fade-in">The minds behind the Real-Time Energy Monitoring System</p>
-    </section>
-
-   <!-- Team Members Section -->
-<section class="container mx-auto px-6 py-10 bg-gray-800">
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
-        <!-- Team Member Card -->
-        <div class="bg-gray-700 p-4 rounded-lg shadow-lg text-center hover-grow">
-            <img class="w-32 h-32 mx-auto rounded-full mb-4" src="shem.jfif" alt="Shem Mwangi" />
-            <h2 class="text-xl font-semibold text-white">Shem Mwangi</h2>
-            <p class="text-gray-300">Project Lead</p>
-            <a class="text-blue-500 mt-2 inline-block" href="https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.linkedin.com/m/login/&ved=2ahUKEwidif689s-LAxXdh_0HHXpkBvoQjBB6BAgJEAY&usg=AOvVaw3gFGrTvM7mgGn8epiBatwX" target="_blank">
-                <i class="fab fa-linkedin fa-2x hover-grow"></i>
-            </a>
-        </div>
-
-        <div class="bg-gray-700 p-4 rounded-lg shadow-lg text-center hover-grow">
-            <img class="w-32 h-32 mx-auto rounded-full mb-4" src="maru.jfif" alt="Quinter Maru" />
-            <h2 class="text-xl font-semibold text-white">Quinter Maru</h2>
-            <p class="text-gray-300">Data Scientist</p>
-            <a class="text-blue-500 mt-2 inline-block" href="" target="_blank">
-                <i class="fab fa-linkedin fa-2x hover-grow"></i>
-            </a>
-        </div>
-
-        <div class="bg-gray-700 p-4 rounded-lg shadow-lg text-center hover-grow">
-            <img class="w-32 h-32 mx-auto rounded-full mb-4" src="tevin.jfif" alt="Tevin Mwangi" />
-            <h2 class="text-xl font-semibold text-white">Tevin Mwangi</h2>
-            <p class="text-gray-300">Data Scientist</p>
-            <a class="text-blue-500 mt-2 inline-block" href="https://www.linkedin.com/in/alicejohnson" target="_blank">
-                <i class="fab fa-linkedin fa-2x hover-grow"></i>
-            </a>
-        </div>
-
-        <div class="bg-gray-700 p-4 rounded-lg shadow-lg text-center hover-grow">
-            <img class="w-32 h-32 mx-auto rounded-full mb-4" src="mushte2.jfif" alt="Gerald Njogu" />
-            <h2 class="text-xl font-semibold text-white">Gerald Njogu</h2>
-            <p class="text-gray-300">Software Engineer</p>
-            <a class="text-blue-500 mt-2 inline-block" href="https://www.linkedin.com/in/gerald-njogu-150a5931b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank">
-                <i class="fab fa-linkedin fa-2x hover-grow"></i>
-            </a>
-        </div>
-
-        <!-- Added the last two cards here -->
-        <div class="bg-gray-700 p-4 rounded-lg shadow-lg text-center hover-grow">
-            <img class="w-32 h-32 mx-auto rounded-full mb-4" src="mato.jfif" alt="Martin Gakumba" />
-            <h2 class="text-xl font-semibold text-white">Martin Gakumba</h2>
-            <p class="text-gray-300">UI/UX Designer</p>
-            <a class="text-blue-500 mt-2 inline-block" href="Check out Martin Gakumba’s profile on LinkedIn https://ke.linkedin.com/in/martin-gakumba-087aa3260" target="_blank">
-                <i class="fab fa-linkedin fa-2x hover-grow"></i>
-            </a>
-        </div>
-
-        <div class="bg-gray-700 p-4 rounded-lg shadow-lg text-center hover-grow">
-            <img class="w-32 h-32 mx-auto rounded-full mb-4" src="https://storage.googleapis.com/a1aa/image/z3rufhSgxKIbzrFodkrHnqbgP15mYMpsT_7SPtG6wqc.jpg" alt="Fidel Otieno" />
-            <h2 class="text-xl font-semibold text-white">Fidel Otieno</h2>
-            <p class="text-gray-300">IoT Engineer</p>
-            <a class="text-blue-500 mt-2 inline-block" href="https://www.linkedin.com/in/fidel-castro-0074a824b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank">
-                <i class="fab fa-linkedin fa-2x hover-grow"></i>
-            </a>
-        </div>
+    <section id="hero-section" class="relative bg-cover bg-center flex items-center justify-center text-white min-h-screen"
+    style="background-image: url('image_IXtvLGMg_1739870775333_raw.jpg');">
+    <div class="absolute inset-0 bg-black opacity-50"></div>
+    <div class="container text-center relative z-10">
+        <h1 id="bubbly-title" class="bubble-text">Meet Our Team</h1>
+        <p id="typed-text" class="text-xl text-gray-300"></p>
     </div>
 </section>
+<style>
+    /* Background Transition Effect */
+    #hero-section {
+        transition: background-image 1s ease-in-out;
+        min-height: 70vh; /* Adjust height as needed */
+        padding: 0; /* Remove padding to ensure full coverage */
+        background-size: cover; /* Ensure the image covers the entire section */
+        background-position: center; /* Center the image */
+    }
+    .bg-opacity-70 {
+        background-color: rgba(0, 0, 0, 0.5); /* Dark overlay for better text visibility */
+    }
+</style>
+    
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const images = [
+            "image_IXtvLGMg_1739870775333_raw.jpg",
+            "image_h4tVbud7_1739869447486_raw.jpg",
+            "cc43f0d4-299b-4fdb-95eb-76d2b17c78fe.webp"
+        ];
+    
+        let index = 0;
+        const heroSection = document.getElementById("hero-section");
+    
+        function changeBackground() {
+            heroSection.style.backgroundImage = `url('${images[index]}')`;
+            index = (index + 1) % images.length; // Loop through images
+        }
+    
+        setInterval(changeBackground, 4000); // Change every 4 seconds
+        changeBackground(); // Initial change
+    });
+    </script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Bubbly Effect
+        const title = document.querySelector("#bubbly-title");
+        title.innerHTML = title.textContent.split('').map(letter => `<span>${letter}</span>`).join('');
+        gsap.fromTo("#bubbly-title span", 
+            { scale: 0.5, opacity: 0 },
+            { scale: 1, opacity: 1, stagger: 0.1, duration: 0.5, ease: "elastic.out(1, 0.5)" }
+        );
 
+        // Typed.js for subtitle
+        new Typed("#typed-text", {
+            strings: ["The minds behind the Real-Time Energy Monitoring System."],
+            typeSpeed: 50,
+            backSpeed: 30,
+            startDelay: 500,
+            showCursor: false,
+        });
+    });
+</script>
+     <!-- Team Section -->
+     <section class="container mx-auto px-6 py-10 bg-gray-800" style="margin-top: 50px;">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
+
+            <!-- Shem Mwangi -->
+            <div class="hover-float tilt gradient-border bg-gray-700 p-6 rounded-lg shadow-lg text-center">
+                <img class="img-hover w-32 h-32 mx-auto rounded-full mb-4" src="shem.jfif" alt="Shem Mwangi">
+                <h2 class="text-xl font-semibold text-white">Shem Mwangi</h2>
+                <p class="text-gray-300">Project Lead</p>
+                <a class="text-blue-500 mt-2 inline-block" href="https://www.linkedin.com" target="_blank">
+                    <i class="fab fa-linkedin fa-2x hover-grow"></i>
+                </a>
+            </div>
+
+            <!-- Quinter Maru -->
+            <div class="hover-float tilt gradient-border bg-gray-700 p-6 rounded-lg shadow-lg text-center">
+                <img class="img-hover w-32 h-32 mx-auto rounded-full mb-4" src="maru.jfif" alt="Quinter Maru">
+                <h2 class="text-xl font-semibold text-white">Quinter Maru</h2>
+                <p class="text-gray-300">Data Scientist</p>
+                <a class="text-blue-500 mt-2 inline-block" href="https://www.linkedin.com" target="_blank">
+                    <i class="fab fa-linkedin fa-2x hover-grow"></i>
+                </a>
+            </div>
+
+            <!-- Tevin Mwangi -->
+            <div class="hover-float tilt gradient-border bg-gray-700 p-6 rounded-lg shadow-lg text-center">
+                <img class="img-hover w-32 h-32 mx-auto rounded-full mb-4" src="tevin.jfif" alt="Tevin Mwangi">
+                <h2 class="text-xl font-semibold text-white">Tevin Mwangi</h2>
+                <p class="text-gray-300">Data Scientist</p>
+                <a class="text-blue-500 mt-2 inline-block" href="https://www.linkedin.com" target="_blank">
+                    <i class="fab fa-linkedin fa-2x hover-grow"></i>
+                </a>
+            </div>
+
+            <!-- Gerald Njogu -->
+            <div class="hover-float tilt gradient-border bg-gray-700 p-6 rounded-lg shadow-lg text-center">
+                <img class="img-hover w-32 h-32 mx-auto rounded-full mb-4" src="mushte2.jfif" alt="Gerald Njogu">
+                <h2 class="text-xl font-semibold text-white">Gerald Njogu</h2>
+                <p class="text-gray-300">Software Engineer</p>
+                <a class="text-blue-500 mt-2 inline-block" href="https://www.linkedin.com" target="_blank">
+                    <i class="fab fa-linkedin fa-2x hover-grow"></i>
+                </a>
+            </div>
+
+            <!-- Martin Gakumba -->
+            <div class="hover-float tilt gradient-border bg-gray-700 p-6 rounded-lg shadow-lg text-center">
+                <img class="img-hover w-32 h-32 mx-auto rounded-full mb-4" src="mato.jfif" alt="Martin Gakumba">
+                <h2 class="text-xl font-semibold text-white">Martin Gakumba</h2>
+                <p class="text-gray-300">UI/UX Designer</p>
+                <a class="text-blue-500 mt-2 inline-block" href="https://www.linkedin.com" target="_blank">
+                    <i class="fab fa-linkedin fa-2x hover-grow"></i>
+                </a>
+            </div>
+
+            <!-- Fidel Otieno -->
+            <div class="hover-float tilt gradient-border bg-gray-700 p-6 rounded-lg shadow-lg text-center">
+                <img class="img-hover w-32 h-32 mx-auto rounded-full mb-4" src="https://storage.googleapis.com/a1aa/image/z3rufhSgxKIbzrFodkrHnqbgP15mYMpsT_7SPtG6wqc.jpg" alt="Fidel Otieno">
+                <h2 class="text-xl font-semibold text-white">Fidel Otieno</h2>
+                <p class="text-gray-300">IoT Engineer</p>
+                <a class="text-blue-500 mt-2 inline-block" href="https://www.linkedin.com" target="_blank">
+                    <i class="fab fa-linkedin fa-2x hover-grow"></i>
+                </a>
+            </div>
+
+        </div>
+    </section>
 
     <!-- Footer -->
-    <footer class="bg-black text-gray-400 py-4">
-        <div class="container mx-auto text-center">
+    <footer class="relative bg-gray-800 text-white py-8">
+        <div class="absolute top-0 left-0 w-full overflow-hidden">
+            <svg viewBox="0 0 500 150" preserveAspectRatio="none" class="w-full h-20">
+                <path d="M0,100 C150,200 350,0 500,100 L500,0 L0,0 Z" fill="#1F2937"></path>
+            </svg>
+        </div>
+        <div class="container mx-auto text-center relative z-10">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="https://www.facebook.com" target="_blank" class="text-blue-500 hover:text-blue-700 transition duration-300">
+                    <i class="fab fa-facebook fa-3x"></i>
+                </a>
+                <a href="https://www.instagram.com" target="_blank" class="text-pink-500 hover:text-pink-700 transition duration-300">
+                    <i class="fab fa-instagram fa-3x"></i>
+                </a>
+                <a href="https://www.twitter.com" target="_blank" class="text-blue-400 hover:text-blue-600 transition duration-300">
+                    <i class="fab fa-twitter fa-3x"></i>
+                </a>
+            </div>
             <p>© 2025 Energy Monitor. All rights reserved.</p>
         </div>
     </footer>
+
 </body>
 </html>
+
