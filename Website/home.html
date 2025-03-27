@@ -5,182 +5,316 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Real-Time Energy Monitoring System</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
     <style>
-       body {
+        body {
             font-family: 'Roboto', sans-serif;
+            scroll-behavior: smooth;
         }
         .fade-in {
             animation: fadeIn 2s ease-in-out;
         }
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        .horizontal-scroll {
-            display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            gap: 1rem;
+        .hero-overlay {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.4));
         }
-        .scroll-item {
-            flex: 0 0 auto;
-            scroll-snap-align: start;
-            min-width: 80%;
+        .feature-card {
+            transition: transform 0.3s, box-shadow 0.3s;
         }
-        @media (min-width: 768px) {
-            .horizontal-scroll {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                overflow-x: hidden;
-            }
-            .scroll-item {
-                min-width: auto;
-            }
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgb(22, 21, 21);
+        }
+        .gradient-border {
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+        }
+        .gradient-border::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ff6f61, #ff9a44);
+            z-index: -1;
+            border-radius: 12px;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .floating-icon {
+            animation: float 3s ease-in-out infinite;
+        }
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .gradient-text {
+            background: linear-gradient(45deg, #ff6f61, #ff9a44);
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .button-hover {
+            background: linear-gradient(45deg, #ff6f61, #ff9a44);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .button-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 111, 97, 0.3);
+        }
+        .icon-hover {
+            transition: transform 0.3s;
+        }
+        .icon-hover:hover {
+            transform: rotate(15deg);
+        }
+        header.scrolled {
+            background: rgba(39, 38, 38, 0.007);
+            padding: 10px 0;
         }
     </style>
 </head>
-<body class="bg-gray-700 text-gray-800 flex flex-col">
+<body class="bg-gray-700 text-gray-800 flex flex-col dark:bg-gray-900 dark:text-gray-100">
 
-   
+    <!-- Loading Animation -->
+    <div id="loading" class="fixed inset-0 bg-black flex items-center justify-center z-50">
+        <div class="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-yellow-400"></div>
+    </div>
+
+    <!-- Scroll Progress Indicator -->
+    <div class="fixed top-0 left-0 h-1 bg-yellow-500 z-50" id="scroll-progress"></div>
+
     <!-- Header -->
-    <header class="bg-transparent text-white p-4 shadow-md sticky top-0 z-50">
+    <header class="bg-transparent text-white p-4 shadow-md sticky top-0 z-50 transition-all duration-300">
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-3xl font-bold">
-                <i class="fas fa-bolt text-yellow-500"></i> Energy Monitor
+                <i class="fas fa-bolt text-yellow-500"></i> PowerEdge
             </h1>
             <nav>
                 <ul class="flex space-x-6">
                     <li><a class="hover:text-gray-300 transition duration-300" href="cover.html">Home</a></li>
                     <li><a class="hover:text-gray-300 transition duration-300" href="contact.html">Contact</a></li>
+                    <li><a class="hover:text-gray-300 transition duration-300" href="team.html">Team</a></li>
                     <li>
-                        <a class="hover:text-gray-300 transition duration-300" href="team.html">Team</a>
+                        
                     </li>
                 </ul>
             </nav>
         </div>
     </header>
-    <section class="relative text-white h-screen flex items-center justify-center text-center md:text-left bg-cover bg-center"
-    style="background-image: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.4)), url('image_IXtvLGMg_1739870775333_raw.jpg');">
 
-    <div class="container mx-auto flex flex-col md:flex-row items-center px-6 md:px-12">
+<!-- Hero Section -->
+<section id="hero-section" class="relative text-white h-screen flex items-center justify-center text-center md:text-left bg-cover bg-center transition-opacity duration-1000"
+    style="background-image: url('image_IXtvLGMg_1739870775333_raw.jpg');">
+    
+    <!-- Dark Overlay -->
+    <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+
+    <div class="container mx-auto flex flex-col md:flex-row items-center px-6 md:px-12 relative z-10 h-full">
         <!-- Text Content -->
-        <div class="md:w-1/2 fade-in">
-            <h2 class="text-5xl font-bold leading-tight mb-6">
-                Real-Time Energy Monitoring System
+        <div class="md:w-1/2 flex flex-col justify-center h-full fade-in" data-aos="fade-right">
+            <h2 class="text-6xl md:text-7xl font-bold leading-tight mb-6 gradient-text">
+                <span id="typed-text"></span>
             </h2>
-            <p class="text-lg mb-6">
+            <p class="text-xl md:text-3xl mb-6">
                 Optimize your energy usage and reduce costs with real-time insights and instant alerts.
             </p>
-            
-        </div>
-    
-
-        <!-- Image -->
-        <div class="md:w-1/2 mt-8 md:mt-0 fade-in">
-            <img src="https://storage.googleapis.com/a1aa/image/P7azFUqzWfB1XLML5XBYil6_vdEw8QG-to0eWs_uf7Q.jpg"
-                alt="Energy Dashboard"
-                class="rounded-lg shadow-2xl w-full md:w-4/5 transform hover:scale-105 transition duration-300"/>
+            <button class="button-hover text-white px-8 py-3 rounded-full text-lg md:text-xl">
+                Get Started
+            </button>
         </div>
     </div>
 </section>
 
+<style>
+/* Background Transition Effect */
+#hero-section {
+    transition: background-image 1s ease-in-out;
+}
+.bg-opacity-70 {
+    background-color: rgba(0, 0, 0, 0.5); /* Dark overlay for better text visibility */
+}
+</style>
 
-
-   <!-- Features Section -->
-<section id="features" class="bg-gradient-to-r from-gray-100 to-gray-200 py-20">
-    <div class="container mx-auto text-center">
-        <h2 class="text-5xl font-bold mb-12 text-gray-800 fade-in">Features</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-            <div class="bg-white p-10 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-105 fade-in">
-                <i class="fas fa-bolt text-yellow-500 text-5xl mb-6"></i>
-                <h3 class="text-2xl font-bold mb-2">Real-Time Monitoring</h3>
-                <p class="text-gray-600">Get up-to-the-minute data on energy consumption.</p>
-            </div>
-            <div class="bg-white p-10 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-105 fade-in">
-                <i class="fas fa-chart-line text-blue-500 text-5xl mb-6"></i>
-                <h3 class="text-2xl font-bold mb-2">Detailed Reports</h3>
-                <p class="text-gray-600">Analyze energy usage with comprehensive insights.</p>
-            </div>
-            <div class="bg-white p-10 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-105 fade-in">
-                <i class="fas fa-bell text-red-500 text-5xl mb-6"></i>
-                <h3 class="text-2xl font-bold mb-2">Instant Alerts</h3>
-                <p class="text-gray-600">Receive notifications for unusual energy patterns.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- How It Works Section -->
-<section id="how-it-works" class="bg-gray-700 bg-center py-20" style="background-image: url('https://source.unsplash.com/1600x900/?technology,energy');">
-    <div class="container mx-auto text-center text-white">
-        <h2 class="text-5xl font-bold mb-12 fade-in">How It Works</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-            <div class="bg-white bg-opacity-20 p-10 rounded-xl shadow-lg hover:bg-opacity-30 transition duration-300 fade-in">
-                <i class="fas fa-plug text-green-400 text-5xl mb-6"></i>
-                <h3 class="text-2xl font-bold mb-2">Connect Sensors</h3>
-                <p>Install smart energy meters to track your consumption.</p>
-            </div>
-            <div class="bg-white bg-opacity-20 p-10 rounded-xl shadow-lg hover:bg-opacity-30 transition duration-300 fade-in">
-                <i class="fas fa-chart-line text-blue-400 text-5xl mb-6"></i>
-                <h3 class="text-2xl font-bold mb-2">Monitor in Real-Time</h3>
-                <p>View live energy data and usage patterns.</p>
-            </div>
-            <div class="bg-white bg-opacity-20 p-10 rounded-xl shadow-lg hover:bg-opacity-30 transition duration-300 fade-in">
-                <i class="fas fa-cogs text-yellow-400 text-5xl mb-6"></i>
-                <h3 class="text-2xl font-bold mb-2">Optimize Efficiency</h3>
-                <p>Utilize insights to reduce consumption and save costs.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Benefits Section -->
-<section id="benefits" class="bg-gradient-to-r from-green-100 to-green-300 py-20">
-    <div class="container mx-auto text-center">
-        <h2 class="text-5xl font-bold mb-12 text-gray-800 fade-in">Benefits</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-            <div class="bg-white p-10 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-105 fade-in">
-                <i class="fas fa-money-bill-wave text-green-600 text-5xl mb-6"></i>
-                <h3 class="text-2xl font-bold mb-2">Cost Savings</h3>
-                <p>Reduce your electricity bills with optimized energy use.</p>
-            </div>
-            <div class="bg-white p-10 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-105 fade-in">
-                <i class="fas fa-leaf text-green-600 text-5xl mb-6"></i>
-                <h3 class="text-2xl font-bold mb-2">Environmental Impact</h3>
-                <p>Lower carbon footprint and promote sustainability.</p>
-            </div>
-            <div class="bg-white p-10 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-105 fade-in">
-                <i class="fas fa-user-shield text-green-600 text-5xl mb-6"></i>
-                <h3 class="text-2xl font-bold mb-2">Enhanced Security</h3>
-                <p>Instant alerts for unusual usage patterns or issues.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- GSAP Animations -->
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        gsap.to(".fade-in", { opacity: 1, duration: 1.5, stagger: 0.3, ease: "power2.out" });
-    });
+document.addEventListener("DOMContentLoaded", function () {
+    const images = [
+        "image_IXtvLGMg_1739870775333_raw.jpg",
+        "image_h4tVbud7_1739869447486_raw.jpg",
+        "cc43f0d4-299b-4fdb-95eb-76d2b17c78fe.webp"
+    ];
+
+    let index = 0;
+    const heroSection = document.getElementById("hero-section");
+
+    function changeBackground() {
+        heroSection.style.backgroundImage = `url('${images[index]}')`;
+        index = (index + 1) % images.length; // Loop through images
+    }
+
+    setInterval(changeBackground, 4000); // Change every 4 seconds
+    changeBackground(); // Initial change
+});
 </script>
 
 
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-4 mt-auto">
+
+    <!-- Features Section -->
+    <section id="features" class="bg-gradient-to-r from-gray-300 to-gray-800 py-20 dark:bg-gray-800">
         <div class="container mx-auto text-center">
+            <h2 class="text-5xl font-bold mb-12 text-gray-800 dark:text-violet fade-in" data-aos="fade-up">Features</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div class="bg-white p-10 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-105 feature-card gradient-border fade-in glassmorphism" data-aos="fade-up" data-aos-delay="100">
+                    <i class="fas fa-bolt text-yellow-500 text-5xl mb-6 floating-icon icon-hover"></i>
+                    <h3 class="text-2xl font-bold mb-2">Real-Time Monitoring</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Get up-to-the-minute data on energy consumption.</p>
+                </div>
+                <div class="bg-white p-10 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-105 feature-card gradient-border fade-in glassmorphism" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fas fa-chart-line text-blue-500 text-5xl mb-6 floating-icon icon-hover"></i>
+                    <h3 class="text-2xl font-bold mb-2">Detailed Reports</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Analyze energy usage with comprehensive insights.</p>
+                </div>
+                <div class="bg-white p-10 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-105 feature-card gradient-border fade-in glassmorphism" data-aos="fade-up" data-aos-delay="300">
+                    <i class="fas fa-bell text-red-500 text-5xl mb-6 floating-icon icon-hover"></i>
+                    <h3 class="text-2xl font-bold mb-2">Instant Alerts</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Receive notifications for unusual energy patterns.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="parallax bg-gray-700 bg-center py-20 dark:bg-gray-900" style="background-image: url('https://source.unsplash.com/1600x900/?technology,energy');">
+        <div class="container mx-auto text-center text-white">
+            <h2 class="text-5xl font-bold mb-12 fade-in" data-aos="fade-up">How It Works</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div class="bg-white bg-opacity-20 p-10 rounded-xl shadow-lg hover:bg-opacity-30 transition duration-300 fade-in glassmorphism" data-aos="fade-up" data-aos-delay="100">
+                    <i class="fas fa-plug text-green-400 text-5xl mb-6 floating-icon icon-hover"></i>
+                    <h3 class="text-2xl font-bold mb-2">Connect Sensors</h3>
+                    <p>Install smart energy meters to track your consumption.</p>
+                </div>
+                <div class="bg-white bg-opacity-20 p-10 rounded-xl shadow-lg hover:bg-opacity-30 transition duration-300 fade-in glassmorphism" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fas fa-chart-line text-blue-400 text-5xl mb-6 floating-icon icon-hover"></i>
+                    <h3 class="text-2xl font-bold mb-2">Monitor in Real-Time</h3>
+                    <p>View live energy data and usage patterns.</p>
+                </div>
+                <div class="bg-white bg-opacity-20 p-10 rounded-xl shadow-lg hover:bg-opacity-30 transition duration-300 fade-in glassmorphism" data-aos="fade-up" data-aos-delay="300">
+                    <i class="fas fa-cogs text-yellow-400 text-5xl mb-6 floating-icon icon-hover"></i>
+                    <h3 class="text-2xl font-bold mb-2">Optimize Efficiency</h3>
+                    <p>Utilize insights to reduce consumption and save costs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section id="benefits" class="bg-gradient-to-r from-green-200 to-green-400 py-20 dark:bg-gray-800">
+        <div class="container mx-auto text-center">
+            <h2 class="text-5xl font-bold mb-12 text-gray-800 dark:text-violet fade-in" data-aos="fade-up">Benefits</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div class="bg-white p-10 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-105 feature-card gradient-border fade-in glassmorphism" data-aos="fade-up" data-aos-delay="100">
+                    <i class="fas fa-money-bill-wave text-green-600 text-5xl mb-6 floating-icon icon-hover"></i>
+                    <h3 class="text-2xl font-bold mb-2">Cost Savings</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Reduce your electricity bills with optimized energy use.</p>
+                </div>
+                <div class="bg-white p-10 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-105 feature-card gradient-border fade-in glassmorphism" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fas fa-leaf text-green-600 text-5xl mb-6 floating-icon icon-hover"></i>
+                    <h3 class="text-2xl font-bold mb-2">Environmental Impact</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Lower carbon footprint and promote sustainability.</p>
+                </div>
+                <div class="bg-white p-10 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-105 feature-card gradient-border fade-in glassmorphism" data-aos="fade-up" data-aos-delay="300">
+                    <i class="fas fa-user-shield text-green-600 text-5xl mb-6 floating-icon icon-hover"></i>
+                    <h3 class="text-2xl font-bold mb-2">Enhanced Security</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Instant alerts for unusual usage patterns or issues.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="relative bg-gray-800 text-white py-8">
+        <div class="absolute top-0 left-0 w-full overflow-hidden">
+            <svg viewBox="0 0 500 150" preserveAspectRatio="none" class="w-full h-20">
+                <path d="M0,100 C150,200 350,0 500,100 L500,0 L0,0 Z" fill="#1F2937"></path>
+            </svg>
+        </div>
+        <div class="container mx-auto text-center relative z-10">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="https://www.facebook.com" target="_blank" class="text-blue-500 hover:text-blue-700 transition duration-300">
+                    <i class="fab fa-facebook fa-3x"></i>
+                </a>
+                <a href="https://www.instagram.com" target="_blank" class="text-pink-500 hover:text-pink-700 transition duration-300">
+                    <i class="fab fa-instagram fa-3x"></i>
+                </a>
+                <a href="https://www.twitter.com" target="_blank" class="text-blue-400 hover:text-blue-600 transition duration-300">
+                    <i class="fab fa-twitter fa-3x"></i>
+                </a>
+            </div>
             <p>© 2025 Energy Monitor. All rights reserved.</p>
         </div>
     </footer>
+
     
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        
+        document.addEventListener("DOMContentLoaded", function () {
+        var options = {
+            strings: ["Real-Time Energy Monitoring System", "Track and Optimize Energy Usage", "Stay Informed with Live Updates"],
+            typeSpeed: 50,
+            backSpeed: 30,
+            backDelay: 2000,
+            loop: true
+        };
+        var typed = new Typed("#typed-text", options);
+    });
+        // Initialize AOS
+        AOS.init();
+
+        // Scroll Progress Indicator
+        window.onscroll = () => {
+            const scrollProgress = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+            document.getElementById('scroll-progress').style.width = `${scrollProgress}%`;
+        };
+
+        // Hide Loading Animation
+        window.addEventListener('load', () => {
+            document.getElementById('loading').style.display = 'none';
+        });
+
+        
+
+        // Sticky Header on Scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        
+    </script>
 </body>
 </html>
-
