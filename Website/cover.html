@@ -9,24 +9,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Poppins:wght@300;600&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
     <style>
         body {
             font-family: 'Poppins', sans-serif;
         }
-        /* Animation for heading */
+        .glowing-text {
+            animation: glow 2s infinite alternate;
+        }
         @keyframes glow {
             0% { text-shadow: 0 0 5px #00eaff, 0 0 10px #00eaff; }
             50% { text-shadow: 0 0 10px #00eaff, 0 0 20px #00eaff; }
             100% { text-shadow: 0 0 5px #00eaff, 0 0 10px #00eaff; }
         }
-        .glowing-text {
-            animation: glow 2s infinite alternate;
-        }
-        /* Hero Section Enhancements */
         .hero-overlay {
             background: linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.3), rgba(0,0,0,0.9));
         }
-        /* Button Styling */
         .glow-on-hover {
             background: linear-gradient(45deg, #1e90ff, #00c3ff);
             transition: 0.4s;
@@ -35,7 +33,6 @@
             transform: scale(1.1);
             box-shadow: 0 0 20px #00c3ff;
         }
-        /* Navbar Blur Effect */
         .navbar {
             backdrop-filter: blur(10px);
             background: rgba(0, 0, 0, 0.6);
@@ -44,23 +41,20 @@
     </style>
 </head>
 <body class="bg-gray-900 text-white">
-    <!-- Navbar Section -->
     <header class="fixed w-full z-50 top-0 navbar shadow-md">
         <div class="container mx-auto flex justify-between items-center p-4">
-            <h1 class="text-2xl font-bold"><i class="fas fa-bolt text-yellow-500"></i> Energy Monitor</h1>
+            <h1 class="text-2xl font-bold"><i class="fas fa-bolt text-yellow-500"></i> PowerEdge</h1>
         </div>
     </header>
 
-    <!-- Hero Section -->
     <div class="relative min-h-screen flex items-center justify-center">
         <div id="particles-js" class="absolute inset-0"></div>
         <img alt="Background of smart city and energy grids" class="absolute inset-0 w-full h-full object-cover" src="image_IXtvLGMg_1739870775333_raw.jpg"/>
         <div class="absolute inset-0 hero-overlay"></div>
         
-        <!-- Main Content -->
         <div class="relative z-10 text-center max-w-lg mx-auto px-9" data-aos="fade-up">
             <h1 class="text-5xl font-bold mb-4 glowing-text">
-                Real-time Energy Monitoring System
+                <span id="typed-text"></span>
             </h1>
             <p class="text-lg mb-6">
                 Monitor and manage your energy consumption in real-time. Stay informed, save energy, and reduce costs with our state-of-the-art system.
@@ -75,7 +69,6 @@
     <script>
         AOS.init();
         
-        // Navbar color change on scroll
         window.addEventListener("scroll", function() {
             const header = document.querySelector("header");
             if (window.scrollY > 50) {
@@ -85,7 +78,6 @@
             }
         });
         
-        // Particle effect
         particlesJS("particles-js", {
             particles: {
                 number: { value: 100 },
@@ -93,6 +85,15 @@
                 move: { speed: 2 }
             }
         });
+
+        var typed = new Typed("#typed-text", {
+            strings: ["Real-time Energy Monitoring System"],
+            typeSpeed: 50,
+            backSpeed: 25,
+            backDelay: 2000,
+            loop: true
+        });
     </script>
 </body>
 </html>
+
